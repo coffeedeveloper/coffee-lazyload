@@ -1,0 +1,29 @@
+{
+  "name": "coffee-lazyload",
+  "version": "0.1.0",
+  "description": "lazyload withou dependence",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev": "babel lib/index.js --out-file build/lazyload.js --watch",
+    "test": "mocha test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coffeedeveloper/coffee-lazyload.git"
+  },
+  "keywords": [
+    "lazyload"
+  ],
+  "author": "CoffeeDeveloper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/coffeedeveloper/coffee-lazyload/issues"
+  },
+  "homepage": "https://github.com/coffeedeveloper/coffee-lazyload#readme",
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-plugin-transform-es2015-modules-umd": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-stage-1": "^6.5.0"
+  }
+}

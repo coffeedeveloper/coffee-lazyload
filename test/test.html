@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="render" content="webkit">
+    <title>lazyload test</title>
+
+    <style media="screen">
+      body {
+        min-height: 3000px;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="img/gray.png" data-origin="img/1.jpg" />
+    <br />
+    <img src="img/gray.png" data-origin="img/2.png" style="margin-top: 1000px;" />
+    <img src="img/gray.png" data-origin="img/3.jpg" style="margin-top: 2000px;" />
+
+    <script type="text/javascript" src="../build/lazyload.js"></script>
+    <script type="text/javascript" src="test.js"></script>
+  </body>
+</html>
