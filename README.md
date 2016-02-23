@@ -14,12 +14,20 @@
 <img src="/images/gray.png" data-origin="/images/1.png" alt="" />
 ```
 
+当然你也可以用`base64`来作为占位符
+
+```html
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
+  data-origin="/images/1.png"/>
+```
+
 ```javascript
 Lazyload.init({
   el: '[data-origin]', //需要绑定延迟加载的元素
   attr: 'origin', //获取图片真实地址的data属性名
   autoLoad: true, //是否自动加载下屏图片
   delay: 2000, //自动加载下屏图片的间隔时间
+  threshold: 0, //提前多少px预加载图片
   recalculate: false, //是否动态重新计算图片位置
 });
 ```

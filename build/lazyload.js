@@ -38,7 +38,7 @@
 
   var scroll = function scroll(e) {
     var top = document.body.scrollTop;
-    load(prior(winHeight + top));
+    load(prior(winHeight + top + opts.threshold));
   };
 
   var bindScroll = function bindScroll() {
@@ -107,7 +107,9 @@
     attr: 'origin',
     autoLoad: true,
     delay: 2000,
-    recalculate: false
+    threshold: 0,
+    recalculate: false,
+    load: function load() {}
   };
 
   var opts = {};
