@@ -38,7 +38,7 @@
 
   var scroll = function scroll(e) {
     var top = document.body.scrollTop;
-    load(prior(top));
+    load(prior(winHeight + top));
   };
 
   var bindScroll = function bindScroll() {
@@ -61,23 +61,53 @@
       counter[d.index].isLoad = true;
       counter.count--;
 
+      if (opts.recalculate) d.el.addEventListener('load', recalculate, false);
+
       if (counter.count <= 0) unbindScroll();
     });
   };
 
   var autoLoad = function autoLoad() {
     setTimeout(function () {
-      load(prior(window.innerHeight * ++times));
+      load(prior(winHeight * ++times));
 
       if (counter.count) autoLoad();
     }, opts.delay);
+  };
+
+  var recalculate = function recalculate() {
+    calculate(counter.filter(function (d) {
+      return d.isLoad == false;
+    }).map(function (d) {
+      return d.el;
+    }));
+  };
+
+  var calculate = function calculate(eles) {
+    counter = [];
+    counter.count = 0;
+
+    each(eles, function (el, i) {
+      var rect = el.getBoundingClientRect();
+
+      counter[i] = {
+        el: el,
+        top: rect.top + document.body.scrollTop,
+        //left: rect.left + document.body.scrollLeft,
+        isLoad: false,
+        index: i
+      };
+
+      counter.count++;
+    });
   };
 
   var defaults = {
     el: '[data-origin]',
     attr: 'origin',
     autoLoad: true,
-    delay: 2000
+    delay: 2000,
+    recalculate: false
   };
 
   var opts = {};
@@ -85,6 +115,7 @@
   var counter = [];
   counter.count = 0;
   var times = 0;
+  var winHeight = window.innerHeight || document.documentElement.clientHeight;
 
   var init = function init(options) {
     opts = extend({}, defaults, options);
@@ -92,21 +123,9 @@
     eles = document.querySelectorAll(opts.el);
 
     if (eles.length) {
-      each(eles, function (el, i) {
-        var rect = el.getBoundingClientRect();
+      calculate(eles);
 
-        counter[i] = {
-          el: el,
-          top: rect.top + document.body.scrollTop,
-          left: rect.left + document.body.scrollLeft,
-          isLoad: false,
-          index: i
-        };
-
-        counter.count++;
-      });
-
-      load(prior(window.innerHeight));
+      load(prior(winHeight));
 
       if (opts.autoLoad) autoLoad();
 

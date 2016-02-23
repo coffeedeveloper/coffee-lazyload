@@ -1,1 +1,4 @@
-Lazyload.init();
+Lazyload.init({
+  autoLoad: false,
+  recalculate: true
+});
