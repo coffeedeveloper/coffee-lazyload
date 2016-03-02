@@ -1,11 +1,11 @@
 {
   "name": "coffee-lazyload",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "lazyload withou dependence",
   "main": "lib/index.js",
   "scripts": {
     "dev": "babel lib/index.js --out-file build/lazyload.js --watch",
-    "build": "babel lib/index.js --out-file build/lazyload.js",
+    "build": "babel lib/index.js --out-file build/lazyload.js && uglifyjs -o build/lazyload.min.js build/lazyload.js",
     "test": "mocha test/index.js"
   },
   "repository": {
@@ -25,6 +25,7 @@
     "babel-cli": "^6.5.1",
     "babel-plugin-transform-es2015-modules-umd": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
-    "babel-preset-stage-1": "^6.5.0"
+    "babel-preset-stage-1": "^6.5.0",
+    "uglify-js": "^2.6.2"
   }
 }

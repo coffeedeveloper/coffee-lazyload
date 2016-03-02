@@ -29,11 +29,11 @@
 
   var each = function each(arr, cb) {
     var len = arr.length;
+    var r = [];
 
     for (var i = 0; i < len; i++) {
-      var r = cb(arr[i], i);
-      if (r === false) break;
-    }
+      r.push(cb(arr[i], i));
+    }return r;
   };
 
   var scroll = function scroll(e) {
@@ -102,22 +102,22 @@
     });
   };
 
-  var defaults = {
-    el: '[data-origin]',
-    attr: 'origin',
-    autoLoad: true,
-    delay: 2000,
-    threshold: 0,
-    recalculate: false,
-    load: function load() {}
-  };
-
   var opts = {};
   var eles = null;
   var counter = [];
   counter.count = 0;
   var times = 0;
   var winHeight = window.innerHeight || document.documentElement.clientHeight;
+
+  var defaults = {
+    el: '[data-origin]',
+    attr: 'origin',
+    autoload: true,
+    delay: 2000,
+    threshold: winHeight,
+    recalculate: false,
+    load: function load() {}
+  };
 
   var init = function init(options) {
     opts = extend({}, defaults, options);
