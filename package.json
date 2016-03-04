@@ -1,5 +1,5 @@
 {
-  "name": "@flyme/lazyload",
+  "name": "coffee-lazyload",
   "version": "0.2.3",
   "description": "lazyload withou dependence",
   "main": "lib/index.js",
@@ -11,9 +11,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/coffeedeveloper/coffee-lazyload.git"
-  },
-  "publishConfig": {
-    "registry": "http://172.17.132.227:8888"
   },
   "keywords": [
     "lazyload"
