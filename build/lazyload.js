@@ -16,6 +16,7 @@
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
+  /*helper*/
   function extend(target) {
     for (var i = 1; i < arguments.length; i++) {
       var arg = arguments[i];
@@ -36,6 +37,23 @@
     }return r;
   };
 
+  var getElData = function getElData(el, d) {
+    if (el.dataset) return el.dataset[d];
+    return el.getAttribute(d);
+  };
+
+  var getEles = function getEles(sel) {
+    var eles = document.querySelectorAll(sel);
+    var arr = [];
+
+    each(eles, function (el) {
+      return el.src != getElData(el, opts.attr) && arr.push(el);
+    });
+
+    return arr;
+  };
+
+  /*events*/
   var scroll = function scroll(e) {
     var top = document.body.scrollTop;
     load(prior(winHeight + top + opts.threshold));
@@ -57,13 +75,17 @@
 
   var load = function load(arr) {
     each(arr, function (d) {
-      d.el.src = d.el.dataset[opts.attr];
+      console.log(d);
+      d.el.src = getElData(d.el, opts.attr);
       counter[d.index].isLoad = true;
       counter.count--;
 
       if (opts.recalculate) d.el.addEventListener('load', recalculate, false);
 
-      if (counter.count <= 0) unbindScroll();
+      if (counter.count <= 0) {
+        state.hasScroll = false;
+        unbindScroll();
+      }
     });
   };
 
@@ -108,6 +130,9 @@
   counter.count = 0;
   var times = 0;
   var winHeight = window.innerHeight || document.documentElement.clientHeight;
+  var state = {
+    hasScroll: true
+  };
 
   var defaults = {
     el: '[data-origin]',
@@ -122,7 +147,7 @@
   var init = function init(options) {
     opts = extend({}, defaults, options);
 
-    eles = document.querySelectorAll(opts.el);
+    eles = getEles(opts.el);
 
     if (eles.length) {
       calculate(eles);
@@ -135,5 +160,19 @@
     }
   };
 
+  var refresh = function refresh(el) {
+    eles = getEles(el || opts.el);
+
+    if (eles.length) {
+      calculate(eles);
+
+      if (!state.hasScroll) {
+        if (opts.autoLoad) autoLoad();
+        bindScroll();
+      }
+    }
+  };
+
   exports.init = init;
+  exports.refresh = refresh;
 });
