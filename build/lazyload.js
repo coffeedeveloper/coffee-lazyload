@@ -75,7 +75,6 @@
 
   var load = function load(arr) {
     each(arr, function (d) {
-      console.log(d);
       d.el.src = getElData(d.el, opts.attr);
       counter[d.index].isLoad = true;
       counter.count--;
