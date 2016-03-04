@@ -32,4 +32,7 @@ Lazyload.init({
   threshold: 0, //提前多少px预加载图片
   recalculate: false, //是否动态重新计算图片位置
 });
+
+//如果后期增加了DOM而需要重新刷新一下插件
+Lazyload.refresh();
 ```
